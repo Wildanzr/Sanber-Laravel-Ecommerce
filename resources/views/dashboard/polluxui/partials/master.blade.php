@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>PolluxUI Admin</title>
+  <title>@yield('title')</title>
   <!-- base:css -->
   <link rel="stylesheet" href="{{ asset('/polluxui/vendors/typicons/typicons.css') }}">
   <link rel="stylesheet" href="{{ asset('/polluxui/vendors/css/vendor.bundle.base.css') }}">
@@ -35,7 +35,7 @@
         <div class="content-wrapper">
        
         <!-- disini konten -->
-
+        @yield('content')
 
         </div>
         <!-- content-wrapper ends -->

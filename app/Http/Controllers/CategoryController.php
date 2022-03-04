@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -13,7 +14,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+
+        return view('dashboard.polluxui.admin.category', compact('categories'));
     }
 
     /**
@@ -34,7 +37,19 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:categories',
+        ],
+        [
+            'name.required' => 'Category is required',
+            'name.unique' => 'Category already exists',
+        ]);
+
+        $category = Category::create([
+            'name' => $request->name,
+        ]);
+
+        return redirect('/category');
     }
 
     /**
@@ -56,7 +71,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $categories = Category::all();
+
+        $category = Category::find($id);
+        return view('dashboard.polluxui.admin.edit-category', compact('category', 'categories'));
     }
 
     /**
@@ -68,7 +87,19 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|unique:categories',
+        ],
+        [
+            'name.required' => 'Category is required',
+            'name.unique' => 'Category already exists',
+        ]);
+
+        $category = Category::find($id);
+        $category->name = $request->name;
+        $category->save();
+
+        return redirect('/category');
     }
 
     /**
@@ -79,6 +110,8 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id)->delete();
+
+        return redirect('/category');
     }
 }

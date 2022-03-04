@@ -23,14 +23,20 @@
                     <span class="nav-profile-name">Eugenia Mullins</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
-                        <i class="typcn typcn-cog-outline text-primary"></i>
-                        Settings
-                    </a>
-                    <a class="dropdown-item">
-                        <i class="typcn typcn-eject text-primary"></i>
-                        Logout
-                    </a>
+                    <button onclick="window.location.href='/profile'" class="dropdown-item btn btn-outline-dark">
+                        <i class="typcn typcn-cog-outline btn-icon-prepend text-primary"></i>
+                        Edit Profile
+                        </span>
+                    </button>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        @method('post')
+                        <button type="submit" class="dropdown-item btn btn-outline-dark">
+                            <i class="typcn typcn-eject btn-icon-prepend text-primary"></i>
+                            Logout
+                            </span>
+                        </button>
+                    </form>
                 </div>
             </li>
         </ul>
@@ -50,7 +56,7 @@
                 <a class="nav-link count-indicator d-flex align-items-center justify-content-center"
                     id="notificationDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                     <i class="typcn typcn-shopping-cart mx-0"></i>
-                      <sup class="badge badge-danger ml-1">0</sup>
+                    <sup class="badge badge-danger ml-1">0</sup>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                     aria-labelledby="notificationDropdown">
@@ -88,5 +94,4 @@
 
 <script>
     //menambahkan produk ke keranjang dan menghitung jumlah produk di keranjang
-    
 </script>

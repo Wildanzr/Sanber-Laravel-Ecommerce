@@ -28,3 +28,7 @@ Route::post('/category', [CategoryController::class, 'store']);
 Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
 Route::get('/category/{id}/edit', [CategoryController::class, 'edit']);
 Route::patch('/category/{id}', [CategoryController::class, 'update']);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -8,7 +8,7 @@
   <title>@yield('title')</title>
   <!-- base:css -->
   <link rel="stylesheet" href="{{ asset('/polluxui/vendors/typicons/typicons.css') }}">
-  <link rel="stylesheet" href="{{ asset('/polluxui/vendors/css/vendor.bundle.base.css') }}">
+  <link rel="stylesheet" href="{{ asset('/polluxui/vendors/css/vendor.bundle.base.cs s') }}">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -36,7 +36,7 @@
        
         <!-- disini konten -->
         @yield('content')
-
+        
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->

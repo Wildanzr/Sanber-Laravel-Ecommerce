@@ -2,83 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $product = DB::table('products')->get()->all();
+
+        return view('dashboard/product/index', compact('product'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'stock' => 'required',
+            'description' => 'required',
+            'picture' => 'required',
+            'price' => 'required',
+            'category_id' => 'required'
+        ],
+        [
+            'name.required' => 'Harap Masukkan Nama Produk',
+            'stock.required' => 'Harap Masukkan Jumlah Stock Product',
+            'description.required' => 'Harap Masukkan Description Produk',
+            'picture.required' => 'Harap Masukkan Foto Produk',
+            'price.required' => 'Harap Masukkan Harga Produk',
+            'category_id.required' => 'Harap Masukkan Kategori Produk',
+        ]
+    );
+
+        $fileName = time().'.'.$request->picture->extension();
+
+        $category = new Product;
+
+        $category->name = $request->name;
+        $category->stock = $request->stock;
+        $category->description = $request->description;
+        $category->picture = $fileName;
+        $category->price = $request->price;
+        $category->category_id = $request->category_id;
+
+        $category->save();
+        $request->picture->move(public_path('images'), $fileName);
+
+        return redirect('product/create')->with('success', 'Data anda berhasil ditambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    public function create(){
+        $category = Category::all();
+
+        return view ('dashboard.product.create', compact('category'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+    public function edit(){
+        // $category = Category::all();
+        // $product = Product::findorfail($id);
+
+        // return view('dashboard.product.edit', compact('product', 'category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    public function show($id){
+        $product = Product::findOrFail($id);
+        return view('dashboard.product.show', compact('product'));
     }
 }

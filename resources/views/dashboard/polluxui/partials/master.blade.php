@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="{{ asset('/polluxui/css/vertical-layout-light/style.css') }}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('/polluxui/images/favicon.png') }}" />
+  @yield('cdn')
   @stack('style')
 </head>
 <body>
@@ -60,6 +61,7 @@
   <!-- container-scroller -->
 
   <!-- base:js -->
+  @yield('script')
   <script src="{{ asset('/polluxui/vendors/js/vendor.bundle.base.js') }}"></script>
   <!-- endinject -->
   <!-- Plugin js for this page-->

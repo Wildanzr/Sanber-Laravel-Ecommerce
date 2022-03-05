@@ -4,7 +4,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Profile;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,18 +37,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('product/edit', [ProductController::class, 'edit']);
     Route::post('product/{product_id}', [ProductController::class, 'update']);
     Route::get('product/{product_id}/show', [ProductController::class, 'show']);
-
     Route::resource('product', ProductController::class);
 
+    //CRUD Profile
     Route::get('/profile/{id}/show', [ProfileController::class, 'index']);
     Route::patch('/profile/{id}', [ProfileController::class, 'update']);
 
-    Route::get('/products', function () {
-        return view('dashboard.polluxui.customer.products');
-    });
+    Route::get('/products', [CustomerController::class, 'index']);
 });
 
 Auth::routes();
-//CRUD Product
-Route::resource('product', ProductController::class);
 

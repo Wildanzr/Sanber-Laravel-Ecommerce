@@ -52,7 +52,7 @@ class ProductController extends Controller
         $category->save();
         $request->picture->move(public_path('images'), $fileName);
 
-        return redirect('product/create')->with('success', 'Data anda berhasil ditambahkan');
+        return redirect('product')->with('success', 'Data anda berhasil ditambahkan');
     }
 
     public function create(){

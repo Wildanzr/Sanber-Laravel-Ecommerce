@@ -1,13 +1,13 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="/products">
                 <i class="typcn typcn-shopping-bag menu-icon"></i>
                 <span class="menu-title">Products</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="/orders">
                 <i class="typcn typcn-th-large-outline menu-icon"></i>
                 <span class="menu-title">My Orders</span>
             </a>
@@ -25,7 +25,7 @@
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="/product">Manage Product</a></li>
                         <li class="nav-item"> <a class="nav-link" href="/category">Manage Category</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="/todo">Manage Order</a></li>
+                        <li class="nav-item"> <a class="nav-link" href="/order">Manage Order</a></li>
                     </ul>
                 </div>
             </li>

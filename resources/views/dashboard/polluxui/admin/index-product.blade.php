@@ -27,7 +27,7 @@
       <table class="table table-striped m-3">
           <thead>
               <tr>
-                  <th scope="col">id</th>
+                  <th scope="col">No</th>
                   <th scope="col">Name</th>
                   <th scope="col">Stock</th>
                   <th scope="col">Description</th>
@@ -36,10 +36,10 @@
               </tr>
           </thead>
           <tbody>
-              @foreach ($product as $item)
+              @foreach ($product as $key => $item)
 
               <tr>
-                  <td>{{ $item->id }}</td>
+                  <td>{{ $key + 1 }}</td>
                   <td>{{ $item->name }}</td>
                   <td>{{ $item->stock }}</td>
                   <td>{{ $item->description }}</td>
@@ -48,9 +48,9 @@
                       <form action="{{ url('product',$item->id) }}" method="POST">
                           @csrf
                           @method('delete')
-                          <a href="{{ route('product.show',$item->id) }}" type="submit" class="btn btn-info btn-sm">Detail Product</a>
-                          <a href="{{ route('product.edit',$item->id) }}" type="submit" class="btn btn-warning btn-sm">Edit Product</a>
-                          <input type="submit" class="btn btn-danger btn-sm" value="DELETE">
+                          <a href="{{ route('product.show',$item->id) }}" type="submit" class="btn btn-info btn-sm mx-2">Detail Product</a>
+                          <a href="{{ route('product.edit',$item->id) }}" type="submit" class="btn btn-warning btn-sm mx-2">Edit Product</a>
+                          <input type="submit" class="btn btn-danger btn-sm mx-2" value="DELETE">
                       </form>
                   </td>
               </tr>

@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -73,14 +74,14 @@ class RegisterController extends Controller
         ]);
 
         Profile::create([
-            'address' => 'null',
-            'phone' => 'null',
-            'gender' => 'null',
+            'address' => null,
+            'phone' => null,
+            'gender' => null,
             'user_id' => $user->id,
-            'dob' => '2000-01-01 12:12:12',
-            'picture' => 'null',
+            'dob' => null,
+            'picture' => null,
         ]);
 
-        return view('dashboard.polluxui.partials.master', compact('user'));
+        return $user;
     }
 }

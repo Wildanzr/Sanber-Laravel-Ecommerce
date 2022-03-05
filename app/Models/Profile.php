@@ -17,4 +17,8 @@ class Profile extends Model
         'dob',
         'picture'
     ];
+
+    public function user(){
+        return $this->belongsTo('App\User');
+      }
 }

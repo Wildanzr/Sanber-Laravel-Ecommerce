@@ -4,6 +4,7 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,30 +18,34 @@ use App\Http\Controllers\ProfileController;
 */
 
 Route::get('/', function () {
-    return view('dashboard.polluxui.partials.master');
+    return view('auth.login');
 });
 
-Route::get('/master', function () {
-    return view('dashboard.polluxui.partials.master');
-});
-
-
-
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/product/view', function () {
-    return view('dashboard.product.productcard');
-});
-
-//CRUD Product
-Route::resource('product', ProductController::class);
 Route::group(['middleware' => ['auth']], function () {
+
+    //CRUD Category
     Route::get('/category', [CategoryController::class, 'index']);
     Route::post('/category', [CategoryController::class, 'store']);
     Route::delete('/category/{id}', [CategoryController::class, 'destroy']);
     Route::get('/category/{id}/edit', [CategoryController::class, 'edit']);
     Route::patch('/category/{id}', [CategoryController::class, 'update']);
-    // Route::get('/profile', [ProfileController::class, 'index']);
+
+    //CRUD Product
+    Route::get('product', [ProductController::class, 'index']);
+    Route::get('product/create', [ProductController::class, 'create']);
+    Route::post('product', [ProductController::class, 'store']);
+    Route::get('product/edit', [ProductController::class, 'edit']);
+    Route::post('product/{product_id}', [ProductController::class, 'update']);
+    Route::get('product/{product_id}/show', [ProductController::class, 'show']);
+
+    Route::resource('product', ProductController::class);
+
+    Route::get('/profile/{id}/show', [ProfileController::class, 'index']);
+    Route::patch('/profile/{id}', [ProfileController::class, 'update']);
+
+    Route::get('/products', function () {
+        return view('dashboard.polluxui.customer.products');
+    });
 });
 
 Auth::routes();

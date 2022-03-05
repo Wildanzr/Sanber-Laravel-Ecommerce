@@ -19,23 +19,27 @@
         <ul class="navbar-nav mr-lg-2">
             <li class="nav-item nav-profile dropdown">
                 <a class="nav-link" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <img src="{{ asset('polluxui/images/faces/face5.jpg') }}" alt="profile" />
-                    <span class="nav-profile-name"> jshds 
-                    </span>
+                    <img src="{{ asset('images/default-profile.jpg') }}" alt="profile" />
+                    <span class="nav-profile-name">{{ Auth::user()->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <button onclick="window.location.href='/profile'" class="dropdown-item btn btn-outline-dark">
-                        <i class="typcn typcn-cog-outline btn-icon-prepend text-primary"></i>
-                        Edit Profile
-                        </span>
-                    </button>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    <form method="get" action="/profile/{{ Auth::user()->id }}/show">
+                        @csrf
+                        @method('get')
+                        <button type="submit" class="dropdown-item btn btn-outline-dark">
+                            <i class="typcn typcn-cog-outline btn-icon-prepend text-primary"></i>
+                            Edit Profile
+                            </span>
+                        </button>
+
+                    </form>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
                         @csrf
                         @method('post')
                         <button type="submit" class="dropdown-item btn btn-outline-dark">
                             <i class="typcn typcn-eject btn-icon-prepend text-primary"></i>
                             Logout
-                            </span>         
+                            </span>
                         </button>
                     </form>
                 </div>

@@ -15,7 +15,7 @@ class ProductController extends Controller
     {
         $product = DB::table('products')->get()->all();
 
-        return view('dashboard/product/index', compact('product'));
+        return view('dashboard.polluxui.admin.index-product', compact('product'));
     }
 
     public function store(Request $request)
@@ -58,14 +58,14 @@ class ProductController extends Controller
     public function create(){
         $category = Category::all();
 
-        return view ('dashboard.product.create', compact('category'));
+        return view ('dashboard.polluxui.admin.create-product', compact('category'));
     }
 
     public function edit($id){
         $category = Category::all();
         $product = Product::findorfail($id);
 
-        return view('dashboard.product.edit', compact('product', 'category'));
+        return view('dashboard.polluxui.admin.edit-product', compact('product', 'category'));
     }
 
     public function show($id){

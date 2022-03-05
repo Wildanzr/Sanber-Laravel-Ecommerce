@@ -49,3 +49,6 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Auth::routes();
+//CRUD Product
+Route::resource('product', ProductController::class);
+

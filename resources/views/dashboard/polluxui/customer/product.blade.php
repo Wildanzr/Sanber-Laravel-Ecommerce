@@ -1,5 +1,9 @@
 @extends('dashboard.polluxui.partials.master')
 
+@section('title')
+    Store Product
+@endsection
+
 @section('content')
 <a href="{{ route('product.create') }}" class="btn btn-primary">Tambah Product</a>
 <div class="row m-3">

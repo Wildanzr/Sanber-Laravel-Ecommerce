@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="{{ asset('/polluxui/css/vertical-layout-light/style.css') }}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{ asset('/polluxui/images/favicon.png') }}" />
+  @stack('style')
 </head>
 <body>
  
@@ -74,6 +75,7 @@
   <!-- Custom js for this page-->
   <script src="{{ asset('/polluxui/js/dashboard.js') }}"></script>
   <!-- End custom js for this page-->
+  @stack('script')
 </body>
 
 </html>

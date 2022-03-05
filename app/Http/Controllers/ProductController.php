@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use File;
 
 class ProductController extends Controller
 {
@@ -60,15 +61,83 @@ class ProductController extends Controller
         return view ('dashboard.product.create', compact('category'));
     }
 
-    public function edit(){
-        // $category = Category::all();
-        // $product = Product::findorfail($id);
+    public function edit($id){
+        $category = Category::all();
+        $product = Product::findorfail($id);
 
-        // return view('dashboard.product.edit', compact('product', 'category'));
+        return view('dashboard.product.edit', compact('product', 'category'));
     }
 
     public function show($id){
         $product = Product::findOrFail($id);
         return view('dashboard.product.show', compact('product'));
+    }
+
+    public function update(Request $request, $id){
+        $request->validate([
+            'name' => 'required',
+            'stock' => 'required',
+            'description' => 'required',
+            'picture' => 'required',
+            'price' => 'required',
+            'category_id' => 'required'
+        ],
+        [
+            'name.required' => 'Harap Masukkan Nama Produk',
+            'stock.required' => 'Harap Masukkan Jumlah Stock Product',
+            'description.required' => 'Harap Masukkan Description Produk',
+            'picture.required' => 'Harap Masukkan Foto Produk',
+            'price.required' => 'Harap Masukkan Harga Produk',
+            'category_id.required' => 'Harap Masukkan Kategori Produk',
+        ]
+    );
+
+    $product = Product::findOrFail($id);
+
+    if($request->has('picture'))
+        {
+
+            $path = "images/";
+            File::delete($path . $product->picture);
+
+            $fileName = time().'.'.$request->picture->extension();
+            $request->picture->move(public_path('images'), $fileName);
+
+            $product_data = 
+            [
+                'name' =>$request->name,
+                'stock' =>$request->stock,
+                'description' =>$request->description,
+                'picture' =>$fileName,
+                'price' =>$request->price,
+                'category_id' =>$request->category_id
+            ];
+
+        }else
+            {
+                $product_data = 
+                [
+                    'name' =>$request->name,
+                    'stock' =>$request->stock,
+                    'description' =>$request->description,
+                    'picture' =>$request->picture,
+                    'price' =>$fileName,
+                    'category_id' =>$request->category_id
+                ];
+            }
+        $product->update($product_data);
+
+        return redirect('/product');
+    }
+
+    public function destroy(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+
+        $path = "/images";
+        File::delete($path, $request->picture);
+        $product->delete();
+
+        return redirect('product');
     }
 }

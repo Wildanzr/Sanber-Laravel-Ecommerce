@@ -37,9 +37,5 @@ Route::get('/product/view', function () {
     return view('dashboard.product.productcard');
 });
 
-Route::get('product', [ProductController::class, 'index']);
-Route::get('product/create', [ProductController::class, 'create']);
-Route::post('product', [ProductController::class, 'store']);
-Route::get('product/edit', [ProductController::class, 'edit']);
-Route::post('product/{product_id}', [ProductController::class, 'update']);
-Route::get('product/{product_id}/show', [ProductController::class, 'show']);
+//CRUD Product
+Route::resource('product', ProductController::class);

@@ -61,7 +61,6 @@
                             <p>Nothing here</p>
                         </a>
                     @endforelse
-
                     @if (count($carts) > 0)
                         <div class="dropdown-item preview-item align-items-center justify-content-center" style="width:10rem;">
                             <a href="/checkout">
@@ -83,29 +82,17 @@
                         <div class="card-body">
                             <div class="d-flex row justify-content-between">
                                 <p class="card-title">{{ $item->name }}</p>
-                                <span class="card-title">Rp: {{ $item->price }}</span>
+                                <p class="card-title text-primary">Rp. {{ $item->price }}</p>
                             </div>
                             <div class="d-flex row justify-content-between align-items-center mb-2">
                                 <p class="card-text">Available: {{ $item->stock }}</p>
                             </div>
-
-                            <div class="d-flex justify-content-between">
+                            <div class="d-flex">
                                 <form action="/add-to-cart/{{ Auth::user()->id }}/{{ $item->id }}" method="post">
                                     @csrf
                                     @method('post')
-
-                                    <button type="submit" class="btn btn-info btn-rounded btn-icon">
-                                        <i class="typcn typcn-plus"></i>
-                                    </button>
+                                    <button class="btn btn-primary" type="submit">Add to cart</button>
                                 </form>
-
-                                <form action="/order-now/{{ $item->id }}" method="post">
-                                    @csrf
-                                    @method('post')
-
-                                    <input type="submit" value="Buy Now" class="btn btn-danger btn-sm">
-                                </form>
-
                             </div>
                         </div>
                     </div>

@@ -65,10 +65,12 @@
                                                     </button>
                                                 </a>
 
-                                                <button type="button" class="btn btn-warning btn-icon-text mx-2">
-                                                    <i class="typcn typcn-shopping-bag btn-icon-prepend"></i>
-                                                    See Products
-                                                </button>
+                                                <a href="/products/category/{{ $item->id }}">
+                                                    <button type="button" class="btn btn-warning btn-icon-text mx-2">
+                                                        <i class="typcn typcn-shopping-bag btn-icon-prepend"></i>
+                                                        See Products
+                                                    </button>
+                                                </a>
 
                                                 <button type="submit" class="btn btn-danger btn-icon-text mx-2">
                                                     <i class="typcn typcn-trash btn-icon-prepend"></i>

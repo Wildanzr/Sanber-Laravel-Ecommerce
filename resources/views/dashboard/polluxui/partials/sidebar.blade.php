@@ -25,7 +25,6 @@
                     <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> <a class="nav-link" href="/product">Manage Product</a></li>
                         <li class="nav-item"> <a class="nav-link" href="/category">Manage Category</a></li>
-                        <li class="nav-item"> <a class="nav-link" href="/order">Manage Order</a></li>
                     </ul>
                 </div>
             </li>

@@ -48,6 +48,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Customer
     Route::get('/products', [CustomerController::class, 'index']);
+    Route::get('/search-products={product_name}', [ProductController::class, 'search']);
+    Route::get('/products/category/{category_id}', [CategoryController::class, 'showProductByCategory']);
     Route::get('/myorders', [CustomerController::class, 'order_index']);
 
     //Cart

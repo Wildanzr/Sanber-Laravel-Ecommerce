@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use File;
+use App\Models\Cart;
 
 class ProductController extends Controller
 {
@@ -139,5 +140,18 @@ class ProductController extends Controller
         $product->delete();
 
         return redirect('product');
+    }
+
+    public function search(Request $request, $product_name)
+    {
+        $search = $request->get('search');
+        $products = Product::where('name', 'LIKE', '%'.$product_name.'%')->get();
+
+        $carts = Cart::where('user_id', auth()->user()->id)
+            ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
+            ->join('products', 'cart_items.product_id', '=', 'products.id')
+            ->get();
+
+        return view('dashboard.polluxui.customer.productsBySearch', compact('products', 'carts'));
     }
 }

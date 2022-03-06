@@ -1,17 +1,18 @@
 @extends('dashboard.polluxui.partials.master')
 
 @section('title')
-    Order Product
+    Store Product by Category
 @endsection
 
 @section('content')
     <div class="card px-3 py-3">
         <div class="row align-items-center justify-content-between">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search..." aria-label="search"
-                    aria-describedby="search" name="search" id="search">
-                <button type="button" onclick=searchProduct() class="btn btn-primary ml-4">Search</button>
-            </div>
+            <div class="col-4 nav-item nav-search d-none d-md-block mr-0">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." aria-label="search"
+                        aria-describedby="search" name="search" id="search">
+                    <button type="button" onclick=searchProduct() class="btn btn-primary ml-4">Search</button>
+                </div>
             </div>
             <div class="col-2">
                 <a class="nav-link count-indicator d-flex align-items-center justify-content-center"
@@ -60,15 +61,11 @@
                             <p>Nothing here</p>
                         </a>
                     @endforelse
-
                     @if (count($carts) > 0)
-                        <div class="dropdown-item preview-item align-items-center justify-content-center"
-                            style="width:10rem;">
-                            <form action="/checkout" method="post">
-                                @csrf
-                                @method('post')
-                                <button class="btn btn-primary" type="submit">Order Now</button>
-                            </form>
+                        <div class="dropdown-item preview-item align-items-center justify-content-center" style="width:10rem;">
+                            <a href="/checkout">
+                                <button class="btn btn-primary" type="button">Order Now</button>
+                            </a>
                         </div>
                     @endif
                 </div>
@@ -76,68 +73,33 @@
         </div>
     </div>
     <div class="card mt-5">
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th class="text-center">No</th>
-                        <th>Picture</th>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th class="text-center">Quantity</th>
-                        <th class="text-center">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($carts as $key => $item)
-                        <tr>
-                            <td class="text-center">{{ $key + 1 }}</td>
-                            <td>
-                                <img src="{{ asset('images/' . $item->picture) }}"
-                                    style="width: 235px; height: 150px; object-fit: cover; border-radius: 0%;"
-                                    alt="{{ $item->name }}">
-                            </td>
-                            <td>{{ $item->name }}</td>
-                            <td>Rp.{{ $item->price }}</td>
-                            <td class="text-center">{{ $item->quantity }}</td>
-                            <td class="text-right px-5"><b
-                                    class="card-title">Rp.{{ $item->price * $item->quantity }}</b></td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="3">There's no cart yet</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th colspan="5" class="px-5">Total</th>
-                        <th class="px-5 text-right">
-                            <h2>Rp. {{ $total }}</h2>
-                        </th>
-                    </tr>
-                </tfoot>
-            </table>
-            <form action="/order" method="post" class="mt-2 px-5 py-3">
-                @csrf
-                @method('post')
-                <div class="row">
-                    <div class="form-group col-12">
-                        <div class="col-sm">
-                            <label class="form-label"><h5>Order Address To :</h5> </label>
-                        </div>
-                        <div class="col-sm">
-                            <input type="text" class="form-control" name="order_address" placeholder="Your Home Address" required>
+        <div class="row px-3 py-3">
+            @forelse ($products as $item)
+                <div class="col-4">
+                    <div class="card my-3" style="width: 18rem;">
+                        <img class="card-img-top" src="{{ asset('images/' . $item->picture) }}" alt="Card image cap"
+                            style="width: 286px; height: 195px; object-fit: cover;">
+                        <div class="card-body">
+                            <div class="d-flex row justify-content-between">
+                                <p class="card-title">{{ $item->name }}</p>
+                                <p class="card-title text-primary">Rp. {{ $item->price }}</p>
+                            </div>
+                            <div class="d-flex row justify-content-between align-items-center mb-2">
+                                <p class="card-text">Available: {{ $item->stock }}</p>
+                            </div>
+                            <div class="d-flex">
+                                <form action="/add-to-cart/{{ Auth::user()->id }}/{{ $item->id }}" method="post">
+                                    @csrf
+                                    @method('post')
+                                    <button class="btn btn-primary" type="submit">Add to cart</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="row mt-4">
-                    <button class="btn btn-info btn-lg btn-block">
-                        Order Now
-                    </button>
-                </div>
-            </form>
+            @empty
+                <h3>Tidak Ada Produk Terkini</h3>
+            @endforelse
         </div>
     </div>
 @endsection

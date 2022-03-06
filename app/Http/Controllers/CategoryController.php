@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Cart;
 
 class CategoryController extends Controller
 {
@@ -113,5 +114,18 @@ class CategoryController extends Controller
         $category = Category::find($id)->delete();
 
         return redirect('/category');
+    }
+
+    public function showProductByCategory($category_id)
+    {
+        $products = Category::find($category_id)->products;
+
+        // dd($products);
+        $carts = Cart::where('user_id', auth()->user()->id)
+            ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
+            ->join('products', 'cart_items.product_id', '=', 'products.id')
+            ->get();
+
+        return view('dashboard.polluxui.customer.productsByCategory', compact('products', 'carts'));
     }
 }

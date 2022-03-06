@@ -10,8 +10,8 @@
             <div class="col-4 nav-item nav-search d-none d-md-block mr-0">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search..." aria-label="search"
-                        aria-describedby="search">
-                    <button type="submit" class="btn btn-primary ml-4">Search</button>
+                        aria-describedby="search" name="search" id="search">
+                    <button type="button" onclick=searchProduct() class="btn btn-primary ml-4">Search</button>
                 </div>
             </div>
             <div class="col-2">
@@ -102,4 +102,14 @@
             @endforelse
         </div>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        //make funtion on button with search document by id "search" then go to link 
+        const searchProduct = () => {
+            let search = document.getElementById('search').value;
+            window.location.href = `/search-products=${search}`;
+        }
+    </script>
 @endsection

@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>PolluxUI Admin</title>
     <!-- base:css -->
-    <link rel="stylesheet" href="{{ asset('polluxui/vendors/typicons/typicons.css') }}">
-    <link rel="stylesheet" href="{{ asset('polluxui/vendors/css/vendor.bundle.base.css') }}">
+    <link rel="stylesheet" href="{{ asset('/polluxui/vendors/typicons/typicons.css') }}">
+    <link rel="stylesheet" href="{{ asset('/polluxui/vendors/css/vendor.bundle.base.css') }}">
     <!-- endinject -->
     <!-- plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
-    <link rel="stylesheet" href="{{ asset('polluxui/css/vertical-layout-light/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('/polluxui/css/vertical-layout-light/style.css') }}">
     <!-- endinject -->
-    <link rel="shortcut icon" href="{{ asset('polluxui/images/favicon.png') }}">
+    <link rel="shortcut icon" href="{{ asset('/polluxui/images/favicon.png') }}">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
                     <div class="col-lg-4 mx-auto">
                         <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                             <div class="brand-logo">
-                                <img src="{{ asset('polluxui/images/logo-dark.svg') }}" alt="logo">
+                                <img src="{{ asset('/polluxui/images/logo-dark.svg') }}" alt="logo">
                             </div>
                             <h4>New here?</h4>
                             <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
@@ -93,14 +93,14 @@
     </div>
     <!-- container-scroller -->
     <!-- base:js -->
-    <script src="{{ asset('polluxui/vendors/js/vendor.bundle.base.js') }}"></script>
+    <script src="{{ asset('/polluxui/vendors/js/vendor.bundle.base.js') }}"></script>
     <!-- endinject -->
     <!-- inject:js -->
-    <script src="{{ asset('polluxui/js/off-canvas.js') }}"></script>
-    <script src="{{ asset('polluxui/js/hoverable-collapse.js') }}"></script>
-    <script src="{{ asset('polluxui/js/template.js') }}"></script>
-    <script src="{{ asset('polluxui/js/settings.js') }}"></script>
-    <script src="{{ asset('polluxui/js/todolist.js') }}"></script>
+    <script src="{{ asset('/polluxui/js/off-canvas.js') }}"></script>
+    <script src="{{ asset('/polluxui/js/hoverable-collapse.js') }}"></script>
+    <script src="{{ asset('/polluxui/js/template.js') }}"></script>
+    <script src="{{ asset('/polluxui/js/settings.js') }}"></script>
+    <script src="{{ asset('/polluxui/js/todolist.js') }}"></script>
     <!-- endinject -->
 
 

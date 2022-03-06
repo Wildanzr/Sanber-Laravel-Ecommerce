@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile/{id}/show', [ProfileController::class, 'index']);
     Route::patch('/profile/{id}', [ProfileController::class, 'update']);
 
+    //Home
     Route::get('/products', [CustomerController::class, 'index']);
+
+    //Cart
+    Route::post('/add-to-cart/{user_id}/{product_id}', [CartController::class, 'addToCart']);
+    Route::post('/subtract-quntity/{user_id}/{product_id}', [CartController::class, 'subtractCartItemQuantity']);
+    Route::post('/add-quntity/{user_id}/{product_id}', [CartController::class, 'addCartItemQuantity']);
 });
 
 Auth::routes();

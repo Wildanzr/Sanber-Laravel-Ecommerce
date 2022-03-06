@@ -8,6 +8,7 @@ use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\ProductOrder;
+use App\Models\UserOrder;
 
 class OrderController extends Controller
 {
@@ -77,6 +78,12 @@ class OrderController extends Controller
                 ->decrement('stock', $cart->quantity);
         }
 
+        UserOrder::create([
+            'user_id' => auth()->user()->id,
+            'order_id' => $order->id,
+            'ordered_at' => now()
+        ]);
+
 
         //delete cartitem and cart after order
         foreach ($carts as $cart) {
@@ -84,7 +91,7 @@ class OrderController extends Controller
         }
         Cart::where('user_id', auth()->user()->id)->delete();
 
-        return redirect('/products');
+        return redirect('/myorders');
     }
 
     /**

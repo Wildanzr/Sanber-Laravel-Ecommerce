@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +46,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/profile/{id}/show', [ProfileController::class, 'index']);
     Route::patch('/profile/{id}', [ProfileController::class, 'update']);
 
-    //Home
+    //Customer
     Route::get('/products', [CustomerController::class, 'index']);
+    Route::get('/myorders', [CustomerController::class, 'order_index']);
 
     //Cart
     Route::post('/add-to-cart/{user_id}/{product_id}', [CartController::class, 'addToCart']);
@@ -56,6 +58,9 @@ Route::group(['middleware' => ['auth']], function () {
     //Order
     Route::get('/checkout', [OrderController::class, 'index']);
     Route::post('/order', [OrderController::class, 'store']);
+
+    //PDF
+    Route::get('/download-invoice/{order_id}', [PDFController::class, 'generatePDF']);
 });
 
 Auth::routes();

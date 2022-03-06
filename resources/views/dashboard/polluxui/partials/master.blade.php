@@ -8,7 +8,7 @@
   <title>@yield('title')</title>
   <!-- base:css -->
   <link rel="stylesheet" href="{{ asset('/polluxui/vendors/typicons/typicons.css') }}">
-  <link rel="stylesheet" href="{{ asset('/polluxui/vendors/css/vendor.bundle.base.cs s') }}">
+  <link rel="stylesheet" href="{{ asset('/polluxui/vendors/css/vendor.bundle.base.css') }}">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->

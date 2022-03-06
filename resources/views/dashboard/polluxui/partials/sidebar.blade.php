@@ -7,7 +7,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/orders">
+            <a class="nav-link" href="/myorders">
                 <i class="typcn typcn-th-large-outline menu-icon"></i>
                 <span class="menu-title">My Orders</span>
             </a>

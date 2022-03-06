@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cart;
+use App\Models\CartItem;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\ProductOrder;
 
 class OrderController extends Controller
 {
@@ -13,7 +18,18 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+
+        $carts = Cart::where('user_id', auth()->user()->id)
+            ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
+            ->join('products', 'cart_items.product_id', '=', 'products.id')
+            ->get();
+        
+        $total = 0;
+        foreach ($carts as $cart) {
+            $total += $cart->price * $cart->quantity;
+        }
+
+        return view('dashboard.polluxui.customer.checkout', compact('carts', 'total'));
     }
 
     /**
@@ -33,8 +49,42 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+    
     {
-        //
+        $carts = Cart::where('user_id', auth()->user()->id)
+            ->join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
+            ->join('products', 'cart_items.product_id', '=', 'products.id')
+            ->get();
+
+        $total = 0;
+        foreach ($carts as $cart) {
+            $total += $cart->price * $cart->quantity;
+        }
+
+        $order = Order::create([
+            'order_address' => $request->order_address,
+            'total_price' => $total
+        ]);
+        
+        foreach ($carts as $cart) {
+            ProductOrder::create([
+                'order_id' => $order->id,
+                'product_id' => $cart->product_id,
+                'amount' => $cart->quantity
+            ]);
+
+            Product::where('id', $cart->product_id)
+                ->decrement('stock', $cart->quantity);
+        }
+
+
+        //delete cartitem and cart after order
+        foreach ($carts as $cart) {
+            CartItem::where('cart_id', $cart->cart_id)->delete();
+        }
+        Cart::where('user_id', auth()->user()->id)->delete();
+
+        return redirect('/products');
     }
 
     /**

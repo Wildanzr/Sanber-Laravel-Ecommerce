@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/add-to-cart/{user_id}/{product_id}', [CartController::class, 'addToCart']);
     Route::post('/subtract-quntity/{user_id}/{product_id}', [CartController::class, 'subtractCartItemQuantity']);
     Route::post('/add-quntity/{user_id}/{product_id}', [CartController::class, 'addCartItemQuantity']);
+
+    //Order
+    Route::get('/checkout', [OrderController::class, 'index']);
+    Route::post('/order', [OrderController::class, 'store']);
 });
 
 Auth::routes();
